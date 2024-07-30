@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { createRoot } from "react-dom/client";
+import styled from "styled-components";
 
 function App() {
   const getItems = (count) =>
@@ -40,7 +41,7 @@ function App() {
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <div
+          <Board
             {...provided.droppableProps}
             ref={provided.innerRef}
             style={getListStyle(snapshot.isDraggingOver)}
@@ -63,12 +64,16 @@ function App() {
               </Draggable>
             ))}
             {provided.placeholder}
-          </div>
+          </Board>
         )}
       </Droppable>
     </DragDropContext>
   );
 }
+
+const Board = styled.div`
+  border: 1px solid red;
+`;
 
 const GRID = 8;
 
