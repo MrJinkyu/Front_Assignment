@@ -27,11 +27,27 @@ export default function AllColumn() {
         return;
       }
 
-      const newItems = reorder(
-        items,
-        result.source.index,
-        result.destination.index
-      );
+      const { destination, source, draggableId } = result;
+
+      if (destination.droppableId === source.droppableId) {
+        setColumns((allColum) => {
+          const colmunCopy = [...allColum[source.droppableId]];
+          const sourceIdNumber = parseInt(
+            colmunCopy[source.index].id.split("-")[1]
+          );
+          const destinationIdNumber =
+            sourceIdNumber < destination.index
+              ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
+              : parseInt(colmunCopy[destination.index].id.split("-")[1]);
+          if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
+            return allColum;
+          }
+
+          const [removed] = colmunCopy.splice(source.index, 1);
+          colmunCopy.splice(destination.index, 0, removed);
+          return { ...allColum, [source.droppableId]: colmunCopy };
+        });
+      }
     },
     [columns]
   );
