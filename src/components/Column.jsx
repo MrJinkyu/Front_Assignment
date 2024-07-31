@@ -27,7 +27,7 @@ export default function Column({ items, columnId }) {
 
 const Container = styled.div`
   width: 250px;
-  height: 655px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   background-color: ${({ theme }) => theme.columnBgColor};

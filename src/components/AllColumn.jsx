@@ -3,8 +3,19 @@ import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Column from "./Column";
 import getItems from "../utils/getItems";
+import { ToastContainer, toast } from "react-toast";
 
 export default function AllColumn() {
+  const evenNumberToast = () =>
+    toast("짝수 아이템은 다른 짝수 아이템 앞으로 이동할 수 없습니다.", {
+      backgroundColor: "#ff4848",
+      color: "#ffffff",
+    });
+  const itemMovementToast = () =>
+    toast("첫 번째 칼럼에서 세 번째 칼럼으로는 아이템 이동이 불가능합니다.", {
+      backgroundColor: "#ff4848",
+      color: "#ffffff",
+    });
   const initColumns = {
     "first column": getItems(10),
     "second column": [],
@@ -31,7 +42,9 @@ export default function AllColumn() {
             destination.index < colmunCopy.length - 1
               ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
               : parseInt(colmunCopy[destination.index].id.split("-")[1]);
+
           if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
+            evenNumberToast();
             return allColum;
           }
 
@@ -47,6 +60,7 @@ export default function AllColumn() {
             source.droppableId === "first column" &&
             destination.droppableId === "third column"
           ) {
+            itemMovementToast();
             return allColum;
           }
 
@@ -78,6 +92,7 @@ export default function AllColumn() {
           );
         })}
       </DragDropContext>
+      <ToastContainer position="top-center" delay={3000} />
     </Container>
   );
 }
