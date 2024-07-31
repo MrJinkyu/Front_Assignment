@@ -1,10 +1,9 @@
 export const theme = {
-  textColor: "#000000",
-  bodyBgColor: "#000000",
-  columnBgColor: "#ffffff",
-  columnDraggingOverColor: "#00A7FF",
-  itemDraggingOverTrue: "#1DBF00",
-  itemDraggingOverFalse: "#FF0000",
-  itemBgColor: "#333",
-  itemTextColor: "#ffffff",
+  bodyBgColor: "#1e1e2e",
+  textColor: "#ffffff",
+  headerBgColor: "#2a2a3c",
+  columnDraggingOverColor: "#404052",
+  itemDraggingOverTrue: "#6edc5a",
+  itemDraggingOverFalse: "#ff4040",
+  itemBgColor: "#3a3a4c",
 };

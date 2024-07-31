@@ -8,14 +8,16 @@ import { ToastContainer, toast } from "react-toast";
 export default function AllColumn() {
   const evenNumberToast = () =>
     toast("짝수 아이템은 다른 짝수 아이템 앞으로 이동할 수 없습니다.", {
-      backgroundColor: "#ff4848",
+      backgroundColor: "#ff4040",
       color: "#ffffff",
     });
+
   const itemMovementToast = () =>
     toast("첫 번째 칼럼에서 세 번째 칼럼으로는 아이템 이동이 불가능합니다.", {
-      backgroundColor: "#ff4848",
+      backgroundColor: "#ff4040",
       color: "#ffffff",
     });
+
   const initColumns = {
     "first column": getItems(10),
     "second column": [],
@@ -81,17 +83,22 @@ export default function AllColumn() {
 
   return (
     <Container>
-      <DragDropContext onDragEnd={onDragEnd}>
-        {Object.keys(columns).map((columnName) => {
-          return (
-            <Column
-              key={columnName}
-              columnId={columnName}
-              items={columns[columnName]}
-            />
-          );
-        })}
-      </DragDropContext>
+      <Header>
+        <ProjectTitle>Front Assignment</ProjectTitle>
+      </Header>
+      <Board>
+        <DragDropContext onDragEnd={onDragEnd}>
+          {Object.keys(columns).map((columnName) => {
+            return (
+              <Column
+                key={columnName}
+                columnId={columnName}
+                items={columns[columnName]}
+              />
+            );
+          })}
+        </DragDropContext>
+      </Board>
       <ToastContainer position="top-center" delay={3000} />
     </Container>
   );
@@ -99,9 +106,26 @@ export default function AllColumn() {
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
-  justify-content: center;
-  align-items: center;
+  color: ${({ theme }) => theme.textColor};
+  padding: 16px;
+`;
+
+const Header = styled.header`
+  background-color: ${({ theme }) => theme.headerBgColor};
+  padding: 16px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 16px;
+`;
+
+const ProjectTitle = styled.h1`
+  margin: 0;
+  font-size: 24px;
+`;
+
+const Board = styled.div`
+  display: flex;
   gap: 20px;
 `;

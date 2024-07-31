@@ -6,7 +6,10 @@ import Item from "./Item";
 export default function Column({ items, columnId }) {
   return (
     <Container>
-      <Title>{columnId}</Title>
+      <Header>
+        <Title>{columnId}</Title>
+        <TaskCount>{items.length}</TaskCount>
+      </Header>
       <Droppable droppableId={columnId}>
         {(provided, snapshot) => (
           <Board
@@ -26,23 +29,38 @@ export default function Column({ items, columnId }) {
 }
 
 const Container = styled.div`
-  width: 250px;
-  height: 700px;
+  background-color: ${({ theme }) => theme.headerBgColor};
+  width: 300px;
+  height: 661px;
+  border-radius: 10px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.columnBgColor};
+`;
+
+const Header = styled.div`
+  font-weight: bold;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Title = styled.h2`
   text-transform: capitalize;
-  text-align: center;
-  font-weight: 800;
-  margin: 16px;
-  font-size: 18px;
+  font-size: 20px;
+  white-space: nowrap;
+  padding-right: 4px;
+`;
+
+const TaskCount = styled.span`
+  background-color: #3a3a4c;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 16px;
 `;
 
 const Board = styled.div`
-  padding: 8px;
   flex-grow: 1;
   background-color: ${({ $isDraggingOver, theme }) =>
     $isDraggingOver ? theme.columnDraggingOverColor : theme.columnBgColor};

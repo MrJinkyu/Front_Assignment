@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import React from "react";
 import AllColumn from "./components/AllColumn";
-import { theme } from "./theme";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');

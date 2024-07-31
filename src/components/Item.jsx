@@ -6,15 +6,15 @@ function Item({ item, index }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided, snapshot) => (
-        <Box
+        <Card
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           $isDragging={snapshot.isDragging}
           $draggingOver={snapshot.draggingOver}
         >
-          {item.content}
-        </Box>
+          <TaskTitle>{item.content}</TaskTitle>
+        </Card>
       )}
     </Draggable>
   );
@@ -22,16 +22,20 @@ function Item({ item, index }) {
 
 export default memo(Item);
 
-const Box = styled.div`
+const Card = styled.div`
   user-select: none;
   padding: 16px;
   margin-bottom: 8px;
-  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: ${({ $isDragging, $draggingOver, theme }) =>
     $isDragging
       ? $draggingOver
         ? theme.itemDraggingOverTrue
         : theme.itemDraggingOverFalse
       : theme.itemBgColor};
-  color: ${({ theme }) => theme.itemTextColor};
+`;
+
+const TaskTitle = styled.h4`
+  font-size: 16px;
 `;
