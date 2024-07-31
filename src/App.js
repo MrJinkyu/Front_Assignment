@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import Columns from "./components/Columns";
 import React from "react";
+import AllColumn from "./components/AllColumn";
 
 const GlobalStyle = createGlobalStyle`
 *{
@@ -14,7 +14,7 @@ export default function App() {
   return (
     <>
       <GlobalStyle />
-      <Columns />
+      <AllColumn />
     </>
   );
 }
