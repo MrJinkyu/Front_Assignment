@@ -12,7 +12,11 @@ export default function Column({ items, columnId }) {
           <Board
             {...provided.droppableProps}
             ref={provided.innerRef}
-            bgColor={snapshot.isDraggingOver}
+            style={{
+              backgroundColor: snapshot.isDraggingOver
+                ? "lightblue"
+                : "lightgrey",
+            }}
           >
             {items.map((item, index) => (
               <Item item={item} index={index} key={item.id} />
@@ -43,5 +47,4 @@ const Title = styled.h2`
 const Board = styled.div`
   padding: 8px;
   flex-grow: 1;
-  background: ${({ bgColor }) => (bgColor ? "lightblue" : "lightgrey")};
 `;

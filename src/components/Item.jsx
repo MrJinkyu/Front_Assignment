@@ -10,8 +10,14 @@ export default function Item({ item, index }) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={{ ...provided.draggableProps.style }}
-          bgColor={snapshot.isDragging}
+          style={{
+            ...provided.draggableProps.style,
+            backgroundColor: snapshot.isDragging
+              ? snapshot.draggingOver
+                ? "lightgreen"
+                : "red"
+              : "grey",
+          }}
         >
           {item.content}
         </Box>
@@ -24,5 +30,4 @@ const Box = styled.div`
   user-select: none;
   padding: 16px;
   margin-bottom: 8px;
-  background: ${({ bgColor }) => (bgColor ? "lightgreen" : "grey")};
 `;
