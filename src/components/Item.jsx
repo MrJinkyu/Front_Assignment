@@ -1,32 +1,28 @@
 import React from "react";
 import { Draggable } from "react-beautiful-dnd";
+import styled from "styled-components";
 
 export default function Item({ item, index }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided, snapshot) => (
-        <div
+        <Box
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={getItemStyle(
-            snapshot.isDragging,
-            provided.draggableProps.style
-          )}
+          style={{ ...provided.draggableProps.style }}
+          bgColor={snapshot.isDragging}
         >
           {item.content}
-        </div>
+        </Box>
       )}
     </Draggable>
   );
 }
 
-const GRID = 8;
-
-const getItemStyle = (isDragging, draggableStyle) => ({
-  userSelect: "none",
-  padding: GRID * 2,
-  margin: `0 0 ${GRID}px 0`,
-  background: isDragging ? "lightgreen" : "grey",
-  ...draggableStyle,
-});
+const Box = styled.div`
+  user-select: none;
+  padding: 16px;
+  margin-bottom: 8px;
+  background: ${({ bgColor }) => (bgColor ? "lightgreen" : "grey")};
+`;

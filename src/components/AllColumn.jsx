@@ -1,15 +1,18 @@
 import React, { useState, useCallback } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
+import styled from "styled-components";
 import Column from "./Column";
+import getItems from "../utils/getItems";
 
 export default function AllColumn() {
-  const getItems = (count) =>
-    Array.from({ length: count }, (v, k) => k).map((k) => ({
-      id: `item-${k}`,
-      content: `item ${k}`,
-    }));
+  const initColumns = {
+    "first column": getItems(10),
+    "second column": [],
+    "third column": [],
+    "fourth column": [],
+  };
 
-  const [items, setItems] = useState(getItems(10));
+  const [columns, setColumns] = useState(initColumns);
 
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -29,15 +32,32 @@ export default function AllColumn() {
         result.source.index,
         result.destination.index
       );
-
-      setItems(newItems);
     },
-    [items]
+    [columns]
   );
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Column items={items} columnId="first" />
-    </DragDropContext>
+    <Container>
+      <DragDropContext onDragEnd={onDragEnd}>
+        {Object.keys(columns).map((columnName) => {
+          return (
+            <Column
+              key={columnName}
+              columnId={columnName}
+              items={columns[columnName]}
+            />
+          );
+        })}
+      </DragDropContext>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;
