@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-export default function Item({ item, index }) {
+function Item({ item, index }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided, snapshot) => (
@@ -19,6 +19,8 @@ export default function Item({ item, index }) {
     </Draggable>
   );
 }
+
+export default memo(Item);
 
 const Box = styled.div`
   user-select: none;

@@ -13,7 +13,6 @@ export default function AllColumn() {
   };
 
   const [columns, setColumns] = useState(initColumns);
-
   const onDragEnd = useCallback(
     (result) => {
       if (!result.destination) {
@@ -29,7 +28,7 @@ export default function AllColumn() {
           );
           const destinationIdNumber =
             sourceIdNumber < destination.index &&
-            destination.index + 1 < colmunCopy.length
+            destination.index < colmunCopy.length - 1
               ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
               : parseInt(colmunCopy[destination.index].id.split("-")[1]);
           if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
