@@ -26,6 +26,12 @@ const Box = styled.div`
   user-select: none;
   padding: 16px;
   margin-bottom: 8px;
-  background-color: ${({ $isDragging, $draggingOver }) =>
-    $isDragging ? ($draggingOver ? "lightgreen" : "red") : "grey"};
+  font-weight: 500;
+  background-color: ${({ $isDragging, $draggingOver, theme }) =>
+    $isDragging
+      ? $draggingOver
+        ? theme.itemDraggingOverTrue
+        : theme.itemDraggingOverFalse
+      : theme.itemBgColor};
+  color: ${({ theme }) => theme.itemTextColor};
 `;

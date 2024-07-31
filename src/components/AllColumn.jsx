@@ -18,7 +18,7 @@ export default function AllColumn() {
       if (!result.destination) {
         return;
       }
-      const { destination, source, draggableId } = result;
+      const { destination, source } = result;
 
       if (destination.droppableId === source.droppableId) {
         setColumns((allColum) => {

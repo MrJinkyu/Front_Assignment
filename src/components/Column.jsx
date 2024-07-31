@@ -30,19 +30,20 @@ const Container = styled.div`
   height: 655px;
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.columnBgColor};
 `;
 
 const Title = styled.h2`
   text-transform: capitalize;
   text-align: center;
-  font-weight: 600;
-  margin-bottom: 10px;
+  font-weight: 800;
+  margin: 16px;
   font-size: 18px;
 `;
 
 const Board = styled.div`
   padding: 8px;
   flex-grow: 1;
-  background-color: ${({ $isDraggingOver }) =>
-    $isDraggingOver ? "lightblue" : "lightgrey"};
+  background-color: ${({ $isDraggingOver, theme }) =>
+    $isDraggingOver ? theme.columnDraggingOverColor : theme.columnBgColor};
 `;
