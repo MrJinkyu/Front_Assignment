@@ -48,6 +48,26 @@ export default function AllColumn() {
           return { ...allColum, [source.droppableId]: colmunCopy };
         });
       }
+
+      if (destination.droppableId !== source.droppableId) {
+        setColumns((allColum) => {
+          if (
+            source.droppableId === "first column" &&
+            destination.droppableId === "third column"
+          ) {
+            return allColum;
+          }
+          const sourceColum = [...allColum[source.droppableId]];
+          const destinationColum = [...allColum[destination.droppableId]];
+          const [removed] = sourceColum.splice(source.index, 1);
+          destinationColum.splice(destination.index, 0, removed);
+          return {
+            ...allColum,
+            [source.droppableId]: sourceColum,
+            [destination.droppableId]: destinationColum,
+          };
+        });
+      }
     },
     [columns]
   );
