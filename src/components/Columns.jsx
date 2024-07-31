@@ -69,9 +69,7 @@ export default function Columns() {
   );
 }
 
-const Board = styled.div`
-  border: 1px solid red;
-`;
+const Board = styled.div``;
 
 const GRID = 8;
 
