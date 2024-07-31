@@ -12,11 +12,7 @@ export default function Column({ items, columnId }) {
           <Board
             {...provided.droppableProps}
             ref={provided.innerRef}
-            style={{
-              backgroundColor: snapshot.isDraggingOver
-                ? "lightblue"
-                : "lightgrey",
-            }}
+            $isDraggingOver={snapshot.isDraggingOver}
           >
             {items.map((item, index) => (
               <Item item={item} index={index} key={item.id} />
@@ -47,4 +43,6 @@ const Title = styled.h2`
 const Board = styled.div`
   padding: 8px;
   flex-grow: 1;
+  background-color: ${({ $isDraggingOver }) =>
+    $isDraggingOver ? "lightblue" : "lightgrey"};
 `;

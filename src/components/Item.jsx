@@ -10,14 +10,8 @@ export default function Item({ item, index }) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          style={{
-            ...provided.draggableProps.style,
-            backgroundColor: snapshot.isDragging
-              ? snapshot.draggingOver
-                ? "lightgreen"
-                : "red"
-              : "grey",
-          }}
+          $isDragging={snapshot.isDragging}
+          $draggingOver={snapshot.draggingOver}
         >
           {item.content}
         </Box>
@@ -30,4 +24,6 @@ const Box = styled.div`
   user-select: none;
   padding: 16px;
   margin-bottom: 8px;
+  background-color: ${({ $isDragging, $draggingOver }) =>
+    $isDragging ? ($draggingOver ? "lightgreen" : "red") : "grey"};
 `;

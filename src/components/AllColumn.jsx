@@ -14,19 +14,11 @@ export default function AllColumn() {
 
   const [columns, setColumns] = useState(initColumns);
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
   const onDragEnd = useCallback(
     (result) => {
       if (!result.destination) {
         return;
       }
-
       const { destination, source, draggableId } = result;
 
       if (destination.droppableId === source.droppableId) {
@@ -36,7 +28,8 @@ export default function AllColumn() {
             colmunCopy[source.index].id.split("-")[1]
           );
           const destinationIdNumber =
-            sourceIdNumber < destination.index
+            sourceIdNumber < destination.index &&
+            destination.index + 1 < colmunCopy.length
               ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
               : parseInt(colmunCopy[destination.index].id.split("-")[1]);
           if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
@@ -57,6 +50,7 @@ export default function AllColumn() {
           ) {
             return allColum;
           }
+
           const sourceColum = [...allColum[source.droppableId]];
           const destinationColum = [...allColum[destination.droppableId]];
           const [removed] = sourceColum.splice(source.index, 1);
