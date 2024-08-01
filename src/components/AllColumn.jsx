@@ -35,42 +35,19 @@ export default function AllColumn() {
         : [...selectedItemIds, itemId]
     );
   };
-
   const isSelected = (itemId) => selectedItemIds.includes(itemId);
-
-  console.log(selectedItemIds);
 
   const onDragEnd = useCallback(
     (result) => {
+      const { destination, source } = result;
       if (!result.destination) {
         return;
       }
-      const { destination, source } = result;
-
-      if (destination.droppableId === source.droppableId) {
-        setColumns((allColum) => {
-          const colmunCopy = [...allColum[source.droppableId]];
-          const sourceIdNumber = parseInt(
-            colmunCopy[source.index].id.split("-")[1]
-          );
-          const destinationIdNumber =
-            sourceIdNumber < destination.index &&
-            destination.index < colmunCopy.length - 1
-              ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
-              : parseInt(colmunCopy[destination.index].id.split("-")[1]);
-
-          if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
-            evenNumberToast();
-            return allColum;
-          }
-
-          const [removed] = colmunCopy.splice(source.index, 1);
-          colmunCopy.splice(destination.index, 0, removed);
-          return { ...allColum, [source.droppableId]: colmunCopy };
-        });
-      }
-
-      if (destination.droppableId !== source.droppableId) {
+      if (
+        selectedItemIds.length > 1 &&
+        selectedItemIds.includes(result.draggableId)
+      ) {
+        // 다른 colum으로 이동하는 경우(복수 아이템 이동)
         setColumns((allColum) => {
           if (
             source.droppableId === "first column" &&
@@ -79,20 +56,72 @@ export default function AllColumn() {
             itemMovementToast();
             return allColum;
           }
+          const allColmunCopy = { ...allColum };
+          const sourceColumnCopy = [...allColmunCopy[source.droppableId]];
 
-          const sourceColum = [...allColum[source.droppableId]];
-          const destinationColum = [...allColum[destination.droppableId]];
-          const [removed] = sourceColum.splice(source.index, 1);
-          destinationColum.splice(destination.index, 0, removed);
-          return {
-            ...allColum,
-            [source.droppableId]: sourceColum,
-            [destination.droppableId]: destinationColum,
-          };
+          const itemsToMove = sourceColumnCopy.filter((item) =>
+            selectedItemIds.includes(item.id)
+          );
+          allColmunCopy[source.droppableId] = sourceColumnCopy.filter(
+            (item) => !selectedItemIds.includes(item.id)
+          );
+          allColmunCopy[destination.droppableId].splice(
+            destination.index,
+            0,
+            ...itemsToMove
+          );
+          return allColmunCopy;
         });
+      } else {
+        // 같은 colum 안에서 이동하는 경우(단일 아이템 이동)
+        if (destination.droppableId === source.droppableId) {
+          setColumns((allColum) => {
+            const colmunCopy = [...allColum[source.droppableId]];
+            const sourceIdNumber = parseInt(
+              colmunCopy[source.index].id.split("-")[1]
+            );
+            const destinationIdNumber =
+              sourceIdNumber < destination.index &&
+              destination.index < colmunCopy.length - 1
+                ? parseInt(colmunCopy[destination.index + 1].id.split("-")[1])
+                : parseInt(colmunCopy[destination.index].id.split("-")[1]);
+
+            if (sourceIdNumber % 2 === 0 && destinationIdNumber % 2 === 0) {
+              evenNumberToast();
+              return allColum;
+            }
+
+            const [removed] = colmunCopy.splice(source.index, 1);
+            colmunCopy.splice(destination.index, 0, removed);
+            return { ...allColum, [source.droppableId]: colmunCopy };
+          });
+        }
+        // 다른 colum으로 이동하는 경우(단일 아이템 이동)
+        if (destination.droppableId !== source.droppableId) {
+          setColumns((allColum) => {
+            if (
+              source.droppableId === "first column" &&
+              destination.droppableId === "third column"
+            ) {
+              itemMovementToast();
+              return allColum;
+            }
+
+            const sourceColum = [...allColum[source.droppableId]];
+            const destinationColum = [...allColum[destination.droppableId]];
+            const [removed] = sourceColum.splice(source.index, 1);
+            destinationColum.splice(destination.index, 0, removed);
+            return {
+              ...allColum,
+              [source.droppableId]: sourceColum,
+              [destination.droppableId]: destinationColum,
+            };
+          });
+        }
       }
+      setSelectedItemIds([]);
     },
-    [columns]
+    [columns, selectedItemIds]
   );
 
   return (
