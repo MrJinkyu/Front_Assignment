@@ -4,11 +4,15 @@
    ```sh
    git clone https://github.com/MrJinkyu/Front_Assignment.git
    ```
-2. NPM 패키지를 설치합니다.
+2. Clone 받은 폴더로 이동합니다.
+   ```sh
+   cd Front_Assignment
+   ```
+3. NPM 패키지를 설치합니다.
    ```sh
    npm install
    ```
-3. 프로젝트를 실행 or 빌드합니다.
+4. 프로젝트를 실행 or 빌드합니다.
    ```sh
     npm run start
    ```
