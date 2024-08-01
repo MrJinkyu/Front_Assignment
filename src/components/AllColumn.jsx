@@ -25,6 +25,21 @@ export default function AllColumn() {
     "fourth column": [],
   });
 
+  const [selectedItemIds, setSelectedItemIds] = useState([]);
+
+  const toggleSelection = (itemId) => {
+    const wasSelected = selectedItemIds.includes(itemId);
+    setSelectedItemIds(
+      wasSelected
+        ? selectedItemIds.filter((id) => id !== itemId)
+        : [...selectedItemIds, itemId]
+    );
+  };
+
+  const isSelected = (itemId) => selectedItemIds.includes(itemId);
+
+  console.log(selectedItemIds);
+
   const onDragEnd = useCallback(
     (result) => {
       if (!result.destination) {
@@ -93,6 +108,8 @@ export default function AllColumn() {
                 key={columnName}
                 columnId={columnName}
                 items={columns[columnName]}
+                toggleSelection={toggleSelection}
+                isSelected={isSelected}
               />
             );
           })}

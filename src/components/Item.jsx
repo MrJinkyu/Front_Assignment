@@ -2,11 +2,13 @@ import React, { memo } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 
-function Item({ item, index }) {
+function Item({ item, index, toggleSelection, isSelected }) {
   return (
     <Draggable key={item.id} draggableId={item.id} index={index}>
       {(provided, snapshot) => (
         <Card
+          onClick={() => toggleSelection(item.id)}
+          $isSelected={isSelected(item.id)}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
@@ -28,11 +30,13 @@ const Card = styled.div`
   margin-bottom: 8px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: ${({ $isDragging, $draggingOver, theme }) =>
+  background-color: ${({ $isDragging, $draggingOver, $isSelected, theme }) =>
     $isDragging
       ? $draggingOver
         ? theme.itemDraggingOverTrue
         : theme.itemDraggingOverFalse
+      : $isSelected
+      ? theme.itemSelected
       : theme.itemBgColor};
 `;
 

@@ -3,7 +3,12 @@ import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import Item from "./Item";
 
-export default function Column({ items, columnId }) {
+export default function Column({
+  items,
+  columnId,
+  toggleSelection,
+  isSelected,
+}) {
   return (
     <Container>
       <Header>
@@ -18,7 +23,13 @@ export default function Column({ items, columnId }) {
             $isDraggingOver={snapshot.isDraggingOver}
           >
             {items.map((item, index) => (
-              <Item item={item} index={index} key={item.id} />
+              <Item
+                item={item}
+                index={index}
+                key={item.id}
+                toggleSelection={toggleSelection}
+                isSelected={isSelected}
+              />
             ))}
             {provided.placeholder}
           </Board>
