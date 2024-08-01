@@ -21,6 +21,15 @@
    npm run build
    ```
 
+# 기능 구현
+1. 첫 번째 칼럼에서 세 번째 칼럼으로는 아이템 이동이 불가능합니다
+![Aug-02-2024 04-43-49](https://github.com/user-attachments/assets/78f338e3-dd74-4ed4-a3d7-00e5cb9d87ed)
+2. 짝수 아이템은 다른 짝수 아이템 앞으로 이동할 수 없습니다.
+![Aug-02-2024 04-45-16](https://github.com/user-attachments/assets/d817802b-5711-4d3d-ad52-11ddb054ff31)
+3. 이동할 수 없는 지점으로 아이템을 드래그 할 경우, 드래그 중인 아이템의 색상이 붉은색으로 변경됩니다.
+![Aug-02-2024 04-46-06](https://github.com/user-attachments/assets/931cc5db-1de4-4374-89fb-c7bba22f6491)
+4. 사용자가 여러 아이템을 선택하고, 이를 다른 칼럼으로 함께 드래그하여 이동할 수 있습니다.
+![Aug-02-2024 04-48-23](https://github.com/user-attachments/assets/61bdac1d-d6b6-4087-a4f6-304507c02120)
 
 # 프론트엔드 개발 과제
 
