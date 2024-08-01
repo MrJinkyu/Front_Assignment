@@ -18,14 +18,13 @@ export default function AllColumn() {
       color: "#ffffff",
     });
 
-  const initColumns = {
+  const [columns, setColumns] = useState({
     "first column": getItems(10),
     "second column": [],
     "third column": [],
     "fourth column": [],
-  };
+  });
 
-  const [columns, setColumns] = useState(initColumns);
   const onDragEnd = useCallback(
     (result) => {
       if (!result.destination) {
